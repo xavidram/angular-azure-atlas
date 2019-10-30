@@ -122,9 +122,12 @@ export class AtlasMapComponent implements OnInit, AfterViewInit {
   private initializeMapResources() {
     this.mapCanvas.events.add('ready', () => {
       this.mapSprites.forEach((sprite: string) => {
+        this.mapCanvas.imageSprite.add(sprite, `assets/svg/${sprite}.svg`);
+        /*
         this.getSpriteFromAsssets(sprite).toPromise().then((data: string) => {
           this.mapCanvas.imageSprite.add(sprite, `${data}`);
         });
+        */
       });
     });
   }

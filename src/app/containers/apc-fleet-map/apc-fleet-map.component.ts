@@ -25,18 +25,19 @@ export class ApcFleetMapComponent implements OnInit, AfterViewInit {
 
   constructor(private kinnser: KinnserService) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   ngAfterViewInit() {
     const dataSource = new atlas.source.DataSource('visits', {
       cluster: true,
       clusterMaxZoom: 12,
-      clusterRadius: 45,
+      clusterRadius: 45
     });
     const layer = new atlas.layer.SymbolLayer(dataSource, 'visitLayer', {
       iconOptions: {
         allowOverlap: true,
-        image: 'house',
+        image: 'home',
+        size: 0.1
       }
     });
     const points = [
