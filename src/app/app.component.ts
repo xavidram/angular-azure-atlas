@@ -9,12 +9,8 @@ import { AtlasMapComponent } from './components/atlas-map';
 export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild(AtlasMapComponent, { static: false }) map: AtlasMapComponent;
 
-  public key = 'FKUOi6psROsjeEaIna1uJ8xC4NkAG1LnPZLvk0cAoYI';
-  public sprites = [
-    { name: 'houses', pathUrl: '../assets/svg/houses.svg' },
-    { name: 'home', pathUrl: '../assets/svg/home.svg' },
-    { name: 'car', pathUrl: '../assets/svg/car.svg' }
-  ];
+  public sprites = ['houses', 'home', 'car'];
+  public subscriptionKey = 'FKUOi6psROsjeEaIna1uJ8xC4NkAG1LnPZLvk0cAoYI';
 
   ngOnInit() {
   }

@@ -33,6 +33,7 @@ import { AtlasToolbarComponent } from 'src/app/components/atlas-toolbar/atlas-to
       flex-direction: column;
       height: inherit;
       width: inherit;
+      overflow: hidden;
     }
     .canvas-wrapper {
       flex: 1;

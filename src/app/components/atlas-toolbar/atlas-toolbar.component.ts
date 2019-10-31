@@ -13,6 +13,11 @@ import { Component, OnInit } from '@angular/core';
   `,
   styles: [
     `
+      :host {
+        position: fixed;
+        z-index: 9999;
+        width: 100%;
+      }
       div.navbar-container {
         width: inherit;
         padding: 0.5rem 1rem;
