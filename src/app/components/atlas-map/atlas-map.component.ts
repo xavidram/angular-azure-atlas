@@ -16,8 +16,8 @@ import { HttpClient } from '@angular/common/http';
   styles: [
     `
       .atlas-map {
-        height: 100%;
-        widht: 100%;
+        height: inherit;
+        width: inherit;
       }
     `
   ]

@@ -1,29 +1,55 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  Input,
+  ElementRef
+} from '@angular/core';
 import { AtlasMapComponent } from 'src/app/components/atlas-map';
 import { KinnserService } from 'src/app/services/kinnser.service';
 import * as atlas from 'azure-maps-control';
 import { Visit } from 'src/app/models/Visit';
+import { AtlasToolbarComponent } from 'src/app/components/atlas-toolbar/atlas-toolbar.component';
 
 @Component({
   selector: 'apc-fleet-map',
   template: `
-    <apc-atlas-map
-      [subscriptionKey]="key"
-      [styleControl]="true"
-      [zoomControl]="true"
-      [mapSprites]="sprites"
-    >
-    </apc-atlas-map>
+    <ng-content select=".atlas-toolbar"></ng-content>
+    <apc-point-detail [opened]="opened"></apc-point-detail>
+    <div class="canvas-wrapper">
+      <apc-atlas-map
+        [subscriptionKey]="subscriptionKey"
+        [styleControl]="true"
+        [zoomControl]="true"
+        [mapSprites]="sprites"
+      >
+      </apc-atlas-map>
+    </div>
   `,
-  styles: [``]
+  styles: [`
+    :host {
+      display: flex;
+      flex-direction: column;
+      height: inherit;
+      width: inherit;
+    }
+    .canvas-wrapper {
+      flex: 1;
+    }
+  `]
 })
 export class ApcFleetMapComponent implements OnInit, AfterViewInit {
   @ViewChild(AtlasMapComponent, { static: false }) map: AtlasMapComponent;
 
-  public key = 'FKUOi6psROsjeEaIna1uJ8xC4NkAG1LnPZLvk0cAoYI';
-  public sprites = ['houses', 'home', 'car'];
+  @Input() subscriptionKey: string;
+  @Input() sprites: any[];
 
-  constructor(private kinnser: KinnserService) {}
+  public opened: boolean;
+
+  constructor(private kinnser: KinnserService) {
+    this.opened = false;
+  }
 
   ngOnInit() {}
 

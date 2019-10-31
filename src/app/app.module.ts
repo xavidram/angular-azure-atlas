@@ -7,12 +7,16 @@ import { ApcFleetMapComponent } from './containers/apc-fleet-map/apc-fleet-map.c
 import { HttpClientModule } from '@angular/common/http';
 import { AtlasMapComponent } from './components/atlas-map';
 import { KinnserService } from './services/kinnser.service';
+import { AtlasToolbarComponent } from './components/atlas-toolbar/atlas-toolbar.component';
+import { PointDetailComponent } from './components/point-detail/point-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ApcFleetMapComponent,
-    AtlasMapComponent
+    AtlasMapComponent,
+    AtlasToolbarComponent,
+    PointDetailComponent
   ],
   imports: [
     BrowserModule,

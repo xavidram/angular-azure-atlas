@@ -2,13 +2,14 @@ import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { AtlasMapComponent } from './atlas-map.component';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { PointDetailComponent } from '../point-detail/point-detail.component';
 
 
 export default {
   title: 'AtlasMap',
   decorators: [
     moduleMetadata({
-      declarations: [AtlasMapComponent],
+      declarations: [PointDetailComponent, AtlasMapComponent],
       imports: [CommonModule, HttpClientModule],
       providers: [HttpClient]
     })
