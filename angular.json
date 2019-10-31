@@ -29,6 +29,8 @@
               "src/assets/svg/*"
             ],
             "styles": [
+              "node_modules/devextreme/dist/css/dx.common.css",
+              "node_modules/devextreme/dist/css/dx.light.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -125,6 +127,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "apc-azure-atlas"
 }

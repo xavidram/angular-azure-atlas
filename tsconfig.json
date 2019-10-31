@@ -20,8 +20,15 @@
       "dom"
     ],
     "paths": {
-      "@assets/*": ["./assets/*"],
-      "@svg/*": ["./assets/svg/*"]
+      "@assets/*": [
+        "./assets/*"
+      ],
+      "@svg/*": [
+        "./assets/svg/*"
+      ],
+      "jszip": [
+        "node_modules/jszip/dist/jszip.min.js"
+      ]
     }
   },
   "angularCompilerOptions": {

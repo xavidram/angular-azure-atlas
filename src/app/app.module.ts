@@ -9,6 +9,7 @@ import { AtlasMapComponent } from './components/atlas-map';
 import { KinnserService } from './services/kinnser.service';
 import { AtlasToolbarComponent } from './components/atlas-toolbar/atlas-toolbar.component';
 import { PointDetailComponent } from './components/point-detail/point-detail.component';
+import { DxFormModule, DxButtonModule } from 'devextreme-angular';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,9 @@ import { PointDetailComponent } from './components/point-detail/point-detail.com
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DxFormModule,
+    DxButtonModule,
   ],
   providers: [KinnserService],
   bootstrap: [AppComponent]

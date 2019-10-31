@@ -26,21 +26,17 @@ import { Component, OnInit } from '@angular/core';
       }
       nav.atlas-nav {
         min-height: 38px;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 1rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
       }
       ::ng-deep nav.atlas-nav > .nav-left {
-        display: -webkit-inline-box;
-        grid-column: 1;
       }
       ::ng-deep nav.atlas-nav > .nav-center {
-        display: -webkit-inline-box;
-        grid-column: 2;
       }
       ::ng-deep nav.atlas-nav > .nav-right {
-        display: -webkit-inline-box;
-        grid-column: 3;
+        justify-self: flex-end;
       }
     `
   ]
