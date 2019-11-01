@@ -1,5 +1,8 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { AtlasMapComponent } from './components/atlas-map';
+import { KinnserService } from './services/kinnser.service';
+import { Visit } from './models/Visit';
+import * as atlas from 'azure-maps-control';
 
 export class SearchEntry {
   from: Date;
@@ -20,54 +23,60 @@ export class SearchEntry {
 export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild(AtlasMapComponent, { static: false }) map: AtlasMapComponent;
 
-  public branches = [
-    {
-      acronym: '',
-      name: 'All Locations',
-      lat: 31.169621,
-      lon: -99.683617,
-      zoom: 6,
-      interactive: true
-    },
-    {
-      acronym: 'HGN',
-      name: 'Harlingen',
-      lat: 26.1906,
-      lon: -97.6961,
-      zoom: 9,
-      interactive: true
-    },
-    {
-      acronym: 'COR',
-      name: 'Corpus',
-      lat: 27.8006,
-      lon: -97.3964,
-      zoom: 9,
-      interactive: true
-    }
-  ];
-
+  public opened: boolean;
   public sprites = ['houses', 'home', 'car'];
   public subscriptionKey = 'FKUOi6psROsjeEaIna1uJ8xC4NkAG1LnPZLvk0cAoYI';
-  public search: SearchEntry;
 
-  public buttonOptions: any = {
-    text: 'Search',
-    type: 'success',
-    useSubmitBehavior: false,
-    onClick: this.submitSearch
-  };
-
-  constructor() {
-    this.search = new SearchEntry();
-    this.submitSearch = this.submitSearch.bind(this);
-  }
+  constructor(private kinnser: KinnserService) {}
 
   ngOnInit() {}
 
   ngAfterViewInit() {}
 
-  public submitSearch(e: any) {
-    console.log(this.search);
+  public async onSearchClick(e: SearchEntry) {
+    const visits = await this.getData(e);
+  }
+
+  public async getData(params: SearchEntry) {
+    return this.kinnser
+      .getVisits({
+        From: params.from,
+        To: params.to,
+        Branch: params.branch
+      })
+      .toPromise();
+  }
+
+  private plotVisits(sourceName: string, data: Visit[]) {
+    const dataSource = new atlas.source.DataSource(sourceName, {
+      cluster: true,
+      clusterMaxZoom: 12,
+      clusterRadius: 45
+    });
+
+    this.map.addDataSource(dataSource);
+
+    const layer = new atlas.layer.SymbolLayer(
+      dataSource,
+      `${sourceName}Layer`,
+      {
+        iconOptions: {
+          image: 'home',
+          size: 0.1,
+          allowOverlap: true
+        }
+      }
+    );
+
+    this.map.addDataLayer(layer);
+
+    const points: atlas.data.Point[] = [];
+    data.forEach((visit: Visit) => {
+      points.push(
+        new atlas.data.Point([parseFloat(visit.lon), parseFloat(visit.lat)])
+      );
+    });
+
+    this.map.addPointsToDataSource(points, sourceName);
   }
 }

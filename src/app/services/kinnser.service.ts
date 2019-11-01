@@ -20,9 +20,9 @@ export interface KinnserFleetPoximity {
   providedIn: 'root'
 })
 export class KinnserService {
-
-  private url = 'http://geovisits.apchh.com/api/kinnser';
-  constructor(private http: HttpClient) { }
+  // private url = 'http://geovisits.apchh.com/api/kinnser';
+  private url = 'http://localhost:5000/api/kinnser';
+  constructor(private http: HttpClient) {}
 
   public getVisits(params: KinnserQueryParams): Observable<Visit[]> {
     return this.http.post<Visit[]>(`${this.url}/visits`, params);
@@ -32,8 +32,9 @@ export class KinnserService {
     return this.http.post<FleetPoint[]>(`${this.url}/trips`, params);
   }
 
-  public fleetsNearVisit(params: KinnserFleetPoximity): Observable<FleetPoint[]> {
+  public fleetsNearVisit(
+    params: KinnserFleetPoximity
+  ): Observable<FleetPoint[]> {
     return this.http.post<FleetPoint[]>(`${this.url}fleetsnearby`, params);
   }
-
 }

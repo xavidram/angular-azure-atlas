@@ -3,7 +3,8 @@ import {
   OnInit,
   ViewChild,
   Input,
-  AfterViewInit
+  AfterViewInit,
+  HostListener
 } from '@angular/core';
 import * as atlas from 'azure-maps-control';
 import { HttpClient } from '@angular/common/http';
@@ -46,6 +47,13 @@ export class AtlasMapComponent implements OnInit, AfterViewInit {
     'satellite',
     'satellite_road_labels'
   ];
+
+  //#region  HotListeners
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.mapCanvas.resize(window.innerHeight, window.innerWidth);
+  }
+  //#endregion
 
   //#region Map Public rendering functions
 
@@ -175,7 +183,7 @@ export class AtlasMapComponent implements OnInit, AfterViewInit {
   }
 
   private getSpriteFromAsssets(name) {
-    return this.http.get(`/assets/svg/${name}.svg`, {responseType: 'text'});
+    return this.http.get(`/assets/svg/${name}.svg`, { responseType: 'text' });
   }
   //#endregion
 }

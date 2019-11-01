@@ -15,7 +15,7 @@ import { Component, OnInit } from '@angular/core';
     `
       :host {
         position: fixed;
-        z-index: 9999;
+        z-index: 100;
         width: 100%;
       }
       div.navbar-container {

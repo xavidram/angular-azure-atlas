@@ -10,6 +10,7 @@ import { KinnserService } from './services/kinnser.service';
 import { AtlasToolbarComponent } from './components/atlas-toolbar/atlas-toolbar.component';
 import { PointDetailComponent } from './components/point-detail/point-detail.component';
 import { DxFormModule, DxButtonModule } from 'devextreme-angular';
+import { SearchFormComponent } from './components/search-form/search-form.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { DxFormModule, DxButtonModule } from 'devextreme-angular';
     ApcFleetMapComponent,
     AtlasMapComponent,
     AtlasToolbarComponent,
-    PointDetailComponent
+    PointDetailComponent,
+    SearchFormComponent
   ],
   imports: [
     BrowserModule,

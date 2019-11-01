@@ -3,21 +3,7 @@
     <div class="nav-left">
       <h3>APC Geo Visits</h3>
     </div>
-    <div class="nav-right">
-      <dx-form id="searchForm" [formData]="search" [colCount]="4" [showColonAfterLabel]="true">
-        <dxi-item dataField="from" editorType="dxDateBox"
-          [editorOptions]="{invalidateMessage: 'Thedate must have the following format: MM/dd/yyyy'}">
-        </dxi-item>
-        <dxi-item dataField="to" editorType="dxDateBox"
-          [editorOptions]="{invalidateMessage: 'Thedate must have the following format: MM/dd/yyyy'}">
-        </dxi-item>
-        <dxi-item dataField="branch" editorType="dxSelectBox"
-          [editorOptions]="{items: branches, displayExpr: 'name', valueExpr: 'acronym' }">
-        </dxi-item>
-        <dxi-item itemType="button" horizontalAlignment="left" [buttonOptions]="buttonOptions">
-        </dxi-item>
-      </dx-form>
-    </div>
+    <apc-search-form class="nav-right" (searchParams)="onSearchClick($event)"></apc-search-form>
   </apc-atlas-toolbar>
   <apc-point-detail [opened]="opened"></apc-point-detail>
 </apc-fleet-map>
