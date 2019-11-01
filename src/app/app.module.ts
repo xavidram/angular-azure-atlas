@@ -9,8 +9,10 @@ import { AtlasMapComponent } from './components/atlas-map';
 import { KinnserService } from './services/kinnser.service';
 import { AtlasToolbarComponent } from './components/atlas-toolbar/atlas-toolbar.component';
 import { PointDetailComponent } from './components/point-detail/point-detail.component';
-import { DxFormModule, DxButtonModule } from 'devextreme-angular';
+import { DxFormModule, DxButtonModule, DxCheckBoxModule } from 'devextreme-angular';
 import { SearchFormComponent } from './components/search-form/search-form.component';
+import { AltasLegendComponent } from './components/altas-legend/altas-legend.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,14 +21,18 @@ import { SearchFormComponent } from './components/search-form/search-form.compon
     AtlasMapComponent,
     AtlasToolbarComponent,
     PointDetailComponent,
-    SearchFormComponent
+    SearchFormComponent,
+    AltasLegendComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
     DxFormModule,
     DxButtonModule,
+    DxCheckBoxModule
   ],
   providers: [KinnserService],
   bootstrap: [AppComponent]

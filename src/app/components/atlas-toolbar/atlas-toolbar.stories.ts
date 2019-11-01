@@ -5,25 +5,24 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 export default {
   title: 'ApcAtlasToolbar',
-    parameters: {
+  parameters: {
     backgrounds: [{ name: 'grey', value: '#3a4149', default: true }]
   },
   decorators: [
     moduleMetadata({
       declarations: [AtlasToolbarComponent],
-      imports: [CommonModule, FormsModule, ReactiveFormsModule],
+      imports: [CommonModule, FormsModule, ReactiveFormsModule]
     })
   ]
 };
 
 export const emptyToolbar = () => ({
-  component: AtlasToolbarComponent,
+  component: AtlasToolbarComponent
 });
 
 export const passingElements = () => ({
   component: AtlasToolbarComponent,
-  template:
-    `
+  template: `
       <apc-atlas-toolbar>
         <div class="nav-right">
           <div class="form-group">
