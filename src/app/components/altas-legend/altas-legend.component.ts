@@ -19,7 +19,8 @@ import { FormArray, FormGroup, FormControl } from '@angular/forms';
   styles: [
     `
       .checkbox-container {
-        padding: 1rem;
+        margin: 1rem;
+        padding: 0.25rem;
         background: white;
         opacity: 0.95;
         border-radius: 4px;
@@ -30,7 +31,6 @@ import { FormArray, FormGroup, FormControl } from '@angular/forms';
         display: block;
         position: relative;
         padding-left: 35px;
-        margin-bottom: 12px;
         cursor: pointer;
         font-size: 22px;
         -webkit-user-select: none;
