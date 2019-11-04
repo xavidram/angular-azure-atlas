@@ -1,5 +1,10 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ContentChild } from '@angular/core';
 import { FormArray, FormGroup, FormControl } from '@angular/forms';
+
+interface DataSourceToggle {
+  name: string;
+  checked: boolean;
+}
 
 @Component({
   selector: 'apc-altas-legend',
@@ -8,7 +13,14 @@ import { FormArray, FormGroup, FormControl } from '@angular/forms';
       <form>
         <div class="form-group" *ngFor="let source of dataSources">
           <label [for]="source" class="check-box">
-            <input type="checkbox" [name]="source" [id]="source" value="true" />
+            <input
+              type="checkbox"
+              [name]="source"
+              [id]="source"
+              [value]="source"
+              checked
+              (change)="checkboxChange($event)"
+            />
             <span class="checkmark"></span>
             {{ source }}
           </label>
@@ -100,9 +112,10 @@ import { FormArray, FormGroup, FormControl } from '@angular/forms';
   ]
 })
 export class AltasLegendComponent implements OnInit {
+
   @Input() dataSources: string[];
 
-  @Output() displaySources = new EventEmitter<string[]>();
+  @Output() dataSourceToggle = new EventEmitter<DataSourceToggle>();
 
   legend: FormGroup;
 
@@ -119,5 +132,12 @@ export class AltasLegendComponent implements OnInit {
       checkBoxes: new FormArray(items)
     });
     */
+  }
+
+  public checkboxChange(e: any) {
+    this.dataSourceToggle.emit({
+      name: e.target.name,
+      checked: e.target.checked
+    });
   }
 }

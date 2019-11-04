@@ -4,15 +4,26 @@ import {
   ViewChild,
   Input,
   AfterViewInit,
-  HostListener
+  HostListener,
+  ContentChild
 } from '@angular/core';
 import * as atlas from 'azure-maps-control';
 import { HttpClient } from '@angular/common/http';
+import { AltasLegendComponent } from '../altas-legend/altas-legend.component';
+
+interface DataSourceToggle {
+  name: string;
+  checked: boolean;
+}
 
 @Component({
   selector: 'apc-atlas-map',
   template: `
-    <div id="AtlasMap" class="atlas-map"></div>
+    <div id="AtlasMap" class="atlas-map">
+      <apc-altas-legend *ngIf="mapSourceIds.length > 0"
+        class="atlas-legend" [dataSources]="mapSourceIds">
+      </apc-altas-legend>
+    </div>
   `,
   styles: [
     `
@@ -20,11 +31,19 @@ import { HttpClient } from '@angular/common/http';
         height: inherit;
         width: inherit;
       }
+      ::ng-deep .atlas-legend {
+        position: absolute;
+        z-index: 2;
+      }
     `
   ]
 })
 export class AtlasMapComponent implements OnInit, AfterViewInit {
-  @ViewChild('AtlasMap', { static: true, read: HTMLElement }) map: HTMLElement;
+  @ContentChild(AltasLegendComponent, { static: false })
+  legend: AltasLegendComponent;
+
+  @ViewChild('AtlasMap', { static: true, read: HTMLElement })
+  map: HTMLElement;
 
   @Input() subscriptionKey: string;
   @Input() center: any = [-97.67411, 26.17516];
@@ -35,6 +54,10 @@ export class AtlasMapComponent implements OnInit, AfterViewInit {
   @Input() pitchControl = false;
   @Input() compassControl = false;
   @Input() mapSprites: string[];
+  @Input() showLegend: boolean;
+
+  public mapSourceIds: string[] = [];
+  private mapLayerIds: string[] = [];
 
   public mapCanvas: atlas.Map;
 
@@ -75,12 +98,14 @@ export class AtlasMapComponent implements OnInit, AfterViewInit {
 
   public addDataSource(dataSource: atlas.source.DataSource) {
     this.mapCanvas.events.add('ready', () => {
+      this.mapSourceIds.push(dataSource.getId());
       this.mapCanvas.sources.add(dataSource);
     });
   }
 
-  public addDataLayer(layer: any) {
+  public addDataLayer(layer: atlas.layer.SymbolLayer) {
     this.mapCanvas.events.add('ready', () => {
+      this.mapLayerIds.push(layer.getId());
       this.mapCanvas.layers.add(layer);
     });
   }
@@ -98,6 +123,10 @@ export class AtlasMapComponent implements OnInit, AfterViewInit {
       });
     });
   }
+
+  public toggleSource(source: DataSourceToggle) {
+    console.log(source);
+  }
   //#endregion
 
   //#region Map Initialization Functions
@@ -113,6 +142,11 @@ export class AtlasMapComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     if (this.mapSprites) this.initializeMapResources();
     this.initializeControls();
+    this.initializeLegendListener();
+  }
+
+  private initializeLegendListener() {
+    this.legend.dataSourceToggle.subscribe(event => {});
   }
 
   private initializeMap() {
